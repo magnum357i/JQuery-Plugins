@@ -1,0 +1,3 @@
+.collapseList_hideAfter ~ li:not(.collapseList_noHide) {
+	display: none;
+}
