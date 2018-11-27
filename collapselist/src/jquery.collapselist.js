@@ -1,11 +1,14 @@
 /**
- * jquery.collapseList.js
- * @version: v1.00
+ * jquery.collapselist.js
+ *
+ * @version: v1.01
  * @author: Magnum357 (https://github.com/magnum357i)
- * @licence MIT
+ * @license: MIT
  */
 
 ;( function ( $ ) {
+
+	'use strict';
 
 	var
 	pluginName = 'collapseList',
@@ -29,20 +32,20 @@
 
 			var self = this;
 
-			self.getAttrOptions();
+			self.getAttrOption( 'moretext' );
+			self.getAttrOption( 'limit' );
 
-			if ( this.$liCount > self.options.limit )
-			{
+			if ( this.$liCount > self.options.limit ) {
+
 				self.$element.find( 'li:nth-child( ' + self.options.limit + ' )' ).addClass( 'collapseList_hideAfter' )
 				self.$element.append( '<li class="collapseList_noHide"><a href="#" data-collapselist-click>' + self.options.moreText.replace( '%limit%', this.$liCount - self.options.limit ) + '</a></li>' );
 			}
 		},
-		getAttrOptions: function() {
+		getAttrOption: function( option_name ) {
 
 			var self = this;
 
-			self.options.limit    = ( self.$element.attr( 'data-collapselist-limit' ) == undefined ) ? self.options.limit : self.$element.attr( 'data-collapselist-limit' );
-			self.options.moreText = ( self.$element.attr( 'data-collapselist-moreText' ) == undefined ) ? self.options.moreText : self.$element.attr( 'data-collapselist-moreText' );
+			self.options[ option_name ] = ( self.$element.attr( 'data-readmore-' + option_name ) == undefined ) ? self.options[ option_name ] : self.$element.attr( 'data-readmore-' + option_name );
 		},
 		click: function(e) {
 
@@ -58,7 +61,9 @@
 	$.fn[ pluginName ] = function( options ) {
 
 		return this.each( function() {
+
 			if ( !$.data( this, pluginName ) ) {
+
 				$.data( this, pluginName, new Plugin( this, options ) );
 			}
 		});

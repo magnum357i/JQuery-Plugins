@@ -178,6 +178,7 @@
 		cleanText: function( t ) {
 
 			t = String(t);
+			t = t.trim();
 			t = t.replace( /<br>/g, "\n" );
 
 			return t;

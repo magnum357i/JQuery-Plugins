@@ -1,11 +1,14 @@
 /**
- * jquery.readMore.js
- * @version: v1.00
+ * jquery.readmore.js
+ *
+ * @version: v1.01
  * @author: Magnum357 (https://github.com/magnum357i)
- * @licence MIT
+ * @license: MIT
  */
 
 ;( function ( $ ) {
+
+	'use strict';
 
 	var
 	pluginName = 'readMore',
@@ -31,12 +34,14 @@
 			var boxHeight  = self.$element.outerHeight();
 			var lineHeight = self.$element.css( 'line-height' ).replace( /[^\d\.]+/, '' );
 
-			self.getAttrOptions();
+			self.getAttrOption( 'moretext' );
+			self.getAttrOption( 'lesstext' );
+			self.getAttrOption( 'line' );
 
 			var heightToView = lineHeight * self.options.line;
 
-			if ( boxHeight > heightToView )
-			{
+			if ( boxHeight > heightToView ) {
+
 				var readMoreId   = Math.random().toString( 36 ).substring( 3 );
 
 				self.$element
@@ -55,11 +60,11 @@
 				.attr( 'data-readmore-click',    'no' );
 			}
 		},
-		getAttrOptions: function() {
+		getAttrOption: function( option_name ) {
 
 			var self = this;
 
-			self.options.line = ( self.$element.attr( 'data-readmore-line' ) == undefined ) ? self.options.line : self.$element.attr( 'data-readmore-line' );
+			self.options[ option_name ] = ( self.$element.attr( 'data-readmore-' + option_name ) == undefined ) ? self.options[ option_name ] : self.$element.attr( 'data-readmore-' + option_name );
 		},
 		click: function(e) {
 
@@ -68,16 +73,17 @@
 			var $this      = $( this );
 			var readMoreId = $this.attr( 'data-readmore-id' );
 
-			if ( $this.attr( 'data-readmore-click' ) == 'no' )
-			{
+			if ( $this.attr( 'data-readmore-click' ) == 'no' ) {
+
 				$( '[data-readmore][data-readmore-id=' + readMoreId + ']' )
-				.removeAttr( 'style' );
+				.css( 'overflow', '' )
+				.css( 'height', '' );
 
 				$this.attr( 'data-readmore-click', 'yes' );
 				$this.text( $this.attr( 'data-readmore-lessText' ) );
 			}
-			else
-			{
+			else {
+
 				var heightToView = $( '[data-readmore][data-readmore-id=' + readMoreId + ']' )
 				.attr( 'data-readmore-height' );
 
@@ -94,7 +100,9 @@
 	$.fn[ pluginName ] = function( options ) {
 
 		return this.each( function() {
+
 			if ( !$.data( this, pluginName ) ) {
+
 				$.data( this, pluginName, new Plugin( this, options ) );
 			}
 		});
@@ -132,7 +140,9 @@
 	$.fn[ removePluginName ] = function() {
 
 		return this.each( function() {
+
 			if ( !$.data( this, removePluginName ) ) {
+
 				$.data( this, removePluginName, new RemovePlugin( this ) );
 			}
 		});

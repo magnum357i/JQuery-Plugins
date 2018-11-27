@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="quickedit/dist/jquery.quickedit.min.js"></script>
+<script src="readmore/dist/jquery.readmore.min.js"></script>
+<script src="collapselist/dist/jquery.collapselist.min.js"></script>
+<link rel="stylesheet" type="text/css" href="collapselist/dist/collapselist.css" />
+<script>
+$( document ).ready( function() {
+    $("[data-quickedit]").quickEdit( {
+
+    		mode: 'single',
+    		callback: function() {
+
+    			alert( 'saved' );
+    		}
+    	}
+    );
+
+    $( '[data-readmore]' ).readMore();
+    $( '[data-collapselist]' ).collapseList();
+});
+</script>
+<style>
+div {
+	line-height: 20px;
+	font-size: 15px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul li {
+	display: inline-block;
+}
+
+ul li:after {
+	content: ',';
+}
+
+ul li:last-child:after, ul li.collapseList_hideAfter:after {
+	content: '';
+}
+
+textarea {
+	width: 100%;
+}
+
+.desc {
+	color: #ccc;
+	font-size: 15px;
+}
+</style>
+</head>
+<body>
+
+<p class="desc">Quick edit (single) example:</p>
+
+<h2 data-quickedit data-quickedit-mode='single'>Lorem ipsum dolor sit amet.</h2>
+
+<p class="desc">Quick edit (multi) example:</p>
+
+<div data-quickedit data-quickedit-mode='multi'>
+	This is Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sapiente, libero minima vitae enim id dolore, pariatur perferendis? Dolores itaque libero nobis aspernatur aliquam nisi nulla amet ipsum sequi est, distinctio deserunt sapiente placeat, delectus dolorem quibusdam cupiditate dolore tempora odit veritatis totam impedit at beatae labore. Quaerat, necessitatibus nostrum!
+</div>
+
+<p class="desc">Readmore example:</p>
+
+<div data-readmore data-readmore-line="4">
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, quidem, quas! Quisquam esse iste provident in est voluptas quos tempora repudiandae, fugit vero, dolor ea! Sequi numquam quo dignissimos, voluptate nulla quis deleniti voluptatem tenetur, fuga atque aspernatur, doloremque totam iste consectetur quam? Ratione voluptatem consequuntur, quod nisi optio officia debitis iste fugiat iure sint aperiam, blanditiis iusto velit itaque ipsum, earum facere minima quia! A laboriosam vero magni veniam? Quos quaerat vel quam quas magni est modi dolores aliquam, voluptas, eligendi a ad voluptate animi iste nesciunt. Asperiores iusto tempore possimus cum praesentium consequuntur sequi quasi velit facilis ullam. Pariatur dolore laudantium molestias libero impedit similique nisi quibusdam atque voluptate. Aspernatur voluptatum nulla eius quisquam voluptas beatae eligendi cupiditate molestias, illo soluta, corrupti laborum optio doloribus non sequi culpa, fuga harum odio numquam dolores debitis quidem odit! Maxime beatae, sed obcaecati suscipit et soluta. Sequi quam quae illo earum voluptatem fuga. Nihil nisi perferendis nemo facere tempora reprehenderit totam repellat magnam error! Enim reprehenderit nihil asperiores, error facilis commodi quaerat, ea laboriosam labore perspiciatis earum debitis, modi voluptas rem cupiditate, unde aspernatur expedita officia quidem veritatis eligendi dicta quis aliquid. Aut ullam fuga necessitatibus aliquid, commodi, sapiente nam eius.
+</div>
+
+<p class="desc">Readmore + quick edit (multi) example:</p>
+
+<div data-readmore data-readmore-line="2" data-quickedit data-quickedit-mode='multi'>
+	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et officiis quas, alias, architecto repellat hic impedit facilis, molestias tempore maxime fuga. Amet, architecto. Labore veritatis autem debitis repellat, delectus illo consectetur explicabo eaque. Nihil adipisci eius maxime vero cumque laboriosam rem quaerat aspernatur dolorem quas officia quae minus, natus nemo veritatis illo soluta dolores tempore maiores deleniti? Totam dolore laborum temporibus ratione ut doloremque amet vel, veritatis alias aliquam modi vitae qui velit fugit cupiditate neque molestiae tempora, debitis placeat, consequuntur provident sunt. Eum omnis, tempore iste quod sint. Ad nisi animi voluptatibus nostrum iure, ipsum eius consequuntur vitae aperiam vero veniam enim, ipsa reprehenderit. Tempora facilis deserunt ipsam aut placeat blanditiis corporis culpa ducimus deleniti minima, laudantium iusto nesciunt nisi eius ab, temporibus molestiae ex asperiores, odio recusandae odit! Tempore facere ab, at assumenda aliquid omnis quam labore unde, aut distinctio dignissimos? Asperiores, eligendi. Illo hic possimus ipsa qui.
+</div>
+
+<p class="desc">Collapse list example:</p>
+
+<ul data-collapselist data-collapselist-limit="3">
+	<li>Robert Singer</li>
+	<li>Philip Sgriccia</li>
+	<li>John F. Showalter</li>
+	<li>Thomas J. Wright</li>
+	<li>Kim Manners</li>
+	<li>Charles Beeson</li>
+	<li>Guy Norman Bee</li>
+	<li>Mike Rohl</li>
+	<li>Steve Boyum</li>
+	<li>John Badham</li>
+</ul>
+
+</body>
+</html>
