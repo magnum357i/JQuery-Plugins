@@ -1,9 +1,9 @@
 /**
  * jquery.collapselist.js
  *
- * @version: v1.01
- * @author: Magnum357 (https://github.com/magnum357i)
- * @license: MIT
+ * @version 	v1.02
+ * @author 		Magnum357
+ * @license 	MIT
  */
 
 ;( function ( $ ) {
@@ -32,7 +32,7 @@
 
 			var self = this;
 
-			self.getAttrOption( 'moretext' );
+			self.getAttrOption( 'moreText' );
 			self.getAttrOption( 'limit' );
 
 			if ( this.$liCount > self.options.limit ) {
@@ -43,11 +43,12 @@
 		},
 		getAttrOption: function( option_name ) {
 
-			var self = this;
+			var self         = this;
+			var option_value = self.$element.attr( 'data-collapselist-' + option_name );
 
-			self.options[ option_name ] = ( self.$element.attr( 'data-readmore-' + option_name ) == undefined ) ? self.options[ option_name ] : self.$element.attr( 'data-readmore-' + option_name );
+			if ( option_value != undefined ) self.options[ option_name ] = option_value;
 		},
-		click: function(e) {
+		click: function( e ) {
 
 			e.preventDefault();
 
@@ -62,10 +63,7 @@
 
 		return this.each( function() {
 
-			if ( !$.data( this, pluginName ) ) {
-
-				$.data( this, pluginName, new Plugin( this, options ) );
-			}
+			if ( !$.data( this, pluginName ) ) $.data( this, pluginName, new Plugin( this, options ) );
 		});
 	};
 

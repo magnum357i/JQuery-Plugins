@@ -1,9 +1,9 @@
 /**
  * jquery.readmore.js
  *
- * @version: v1.01
- * @author: Magnum357 (https://github.com/magnum357i)
- * @license: MIT
+ * @version 	v1.02
+ * @author 		Magnum357 (https://github.com/magnum357i)
+ * @license 	MIT
  */
 
 ;( function ( $ ) {
@@ -20,7 +20,7 @@
 
 	function Plugin( element, options ) {
 
-		this.$element = $(element);
+		this.$element = $( element );
 		this.options  = $.extend( {}, defaults, options );
 
 		this.init();
@@ -34,8 +34,8 @@
 			var boxHeight  = self.$element.outerHeight();
 			var lineHeight = self.$element.css( 'line-height' ).replace( /[^\d\.]+/, '' );
 
-			self.getAttrOption( 'moretext' );
-			self.getAttrOption( 'lesstext' );
+			self.getAttrOption( 'moreText' );
+			self.getAttrOption( 'lessText' );
 			self.getAttrOption( 'line' );
 
 			var heightToView = lineHeight * self.options.line;
@@ -62,11 +62,12 @@
 		},
 		getAttrOption: function( option_name ) {
 
-			var self = this;
+			var self         = this;
+			var option_value = self.$element.attr( 'data-readmore-' + option_name );
 
-			self.options[ option_name ] = ( self.$element.attr( 'data-readmore-' + option_name ) == undefined ) ? self.options[ option_name ] : self.$element.attr( 'data-readmore-' + option_name );
+			if ( option_value != undefined ) self.options[ option_name ] = option_value;
 		},
-		click: function(e) {
+		click: function( e ) {
 
 			e.preventDefault();
 
@@ -101,11 +102,8 @@
 
 		return this.each( function() {
 
-			if ( !$.data( this, pluginName ) ) {
-
-				$.data( this, pluginName, new Plugin( this, options ) );
-			}
-		});
+			if ( !$.data( this, pluginName ) ) $.data( this, pluginName, new Plugin( this, options ) );
+		} );
 	};
 
 	$( document ).on( 'click', '[data-readmore-click]', Plugin.prototype.click );
@@ -114,7 +112,7 @@
 
 	function RemovePlugin( element ) {
 
-		this.$element = $(element);
+		this.$element = $( element );
 
 		this.destory();
 	}
@@ -141,11 +139,8 @@
 
 		return this.each( function() {
 
-			if ( !$.data( this, removePluginName ) ) {
-
-				$.data( this, removePluginName, new RemovePlugin( this ) );
-			}
-		});
+			if ( !$.data( this, removePluginName ) ) $.data( this, removePluginName, new RemovePlugin( this ) );
+		} );
 	};
 
 } ) ( jQuery );

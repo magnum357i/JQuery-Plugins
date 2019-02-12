@@ -1,11 +1,14 @@
 /**
  * jquery.quickEdit.js
- * @version: v1.00
- * @author: Magnum357 (https://github.com/magnum357i)
- * @licence MIT
+ *
+ * @version 	v1.01
+ * @author 		Magnum357 (https://github.com/magnum357i)
+ * @licence 	MIT
  */
 
 ;( function ( $ ) {
+
+	'use strict';
 
 	var
 	pluginName = 'quickEdit',
@@ -23,7 +26,7 @@
 
 	function Plugin( element, options ) {
 
-		this.$element = $(element);
+		this.$element = $( element );
 		this.options  = $.extend( {}, defaults, options );
 
 		this.init();
@@ -35,15 +38,24 @@
 
 			var self = this;
 
-			self.getAttrOptions();
+			self.getAttrOption( 'duration' );
+			self.getAttrOption( 'rows' );
+			self.getAttrOption( 'title' );
+			self.getAttrOption( 'okButtonText' );
+			self.getAttrOption( 'cancelButtonText' );
+			self.getAttrOption( 'okButtonClass' );
+			self.getAttrOption( 'cancelButtonClass' );
+			self.getAttrOption( 'callback' );
+			self.getAttrOption( 'mode' );
 			self.writeTitle();
 			self.openPanel();
 		},
-		getAttrOptions: function() {
+		getAttrOption: function( option_name ) {
 
-			var self = this;
+			var self         = this;
+			var option_value = self.$element.attr( 'data-quickedit-' + option_name );
 
-			self.options.mode = ( self.$element.attr( 'data-quickedit-mode' ) == undefined ) ? self.options.mode : self.$element.attr( 'data-quickedit-mode' );
+			if ( option_value != undefined ) self.options[ option_name ] = option_value;
 		},
 		writeTitle: function() {
 
@@ -66,24 +78,24 @@
 
 				delay = setTimeout( function() {
 
-					if ( self.$element.attr( 'data-quickedit-opened' ) == undefined )
-					{
+					if ( self.$element.attr( 'data-quickedit-opened' ) == undefined ) {
+
 						self.whenPanelOpens();
 
 						self.$element.attr( 'data-quickedit-opened', true );
 
 						var template = [];
 
-						if ( self.options.mode == 'multi' )
-						{
+						if ( self.options.mode == 'multi' ) {
+
 							template.push( '<textarea data-quickedit-text rows="' + self.options.rows + '">' + self.cleanText( self.$element.html() ) + '</textarea>' );
 							template.push( '<div data-quickedit-buttons>' );
 							template.push( '<span data-quickedit-button="ok" class="' + self.options.okButtonClass + '"><i class="fa fa-check"></i> ' + self.options.okButtonText + '</span>' );
 							template.push( '<span data-quickedit-button="cancel" class="' + self.options.cancelButtonClass + '"><i class="fa fa-times"></i> ' + self.options.cancelButtonText + '</span>' );
 							template.push( '</div>' );
 						}
-						else if ( self.options.mode == 'single' )
-						{
+						else if ( self.options.mode == 'single' ) {
+
 							template.push( '<input type="text" data-quickedit-text value="' + self.cleanText( self.$element.html() ) + '"></input>' );
 							template.push( '<div data-quickedit-buttons>' );
 							template.push( '<span data-quickedit-button="ok" class="' + self.options.okButtonClass + '"><i class="fa fa-check"></i> ' + self.options.okButtonText + '</span>' );
@@ -99,20 +111,17 @@
 
 				}, self.options.duration );
 
-			}).on( 'mouseup', function() {
+			} ).on( 'mouseup', function() {
 
-    			clearTimeout( delay );
+    				clearTimeout( delay );
 
-			});
+			} );
 		},
 		whenPanelOpens: function() {
 
 			var self = this;
 
-			if ( self.$element.attr( 'data-readmore' ) != undefined && typeof self.$element.removeReadMore == 'function' )
-			{
-				self.$element.removeReadMore();
-			}
+			if ( self.$element.attr( 'data-readmore' ) != undefined && typeof self.$element.removeReadMore == 'function' ) self.$element.removeReadMore();
 		},
 		runPanelActions: function() {
 
@@ -126,13 +135,13 @@
 
 				var editedText;
 
-				if ( self.options.mode == 'multi' )
-				{
+				if ( self.options.mode == 'multi' ) {
+
 					editedText = self.$element.find( '[data-quickedit-text]' ).val();
 					editedText = self.parseText( editedText );
 				}
-				else if ( self.options.mode == 'single' )
-				{
+				else if ( self.options.mode == 'single' ) {
+
 					editedText = self.$element.find( '[data-quickedit-text]' ).val();
 				}
 
@@ -140,11 +149,11 @@
 
 				var callback = self.options.callback;
 
-				if ( $.isFunction( callback ) )
-				{
+				if ( $.isFunction( callback ) ) {
+
 					callback.call( self );
 				}
-			});
+			} );
 
 			self.$element.find( '[data-quickedit-button="cancel"]' ).on( 'click', function() {
 
@@ -154,19 +163,18 @@
 
 				var originalText;
 
-				if ( self.options.mode == 'multi' )
-				{
+				if ( self.options.mode == 'multi' ) {
+
 					originalText = self.$element.find( '[data-quickedit-text]' ).html();
 					originalText = self.parseText( originalText );
 				}
-				else if ( self.options.mode == 'single' )
-				{
+				else if ( self.options.mode == 'single' ) {
+
 					originalText = self.$element.find( '[data-quickedit-text]' ).val();
 				}
 
 				self.$element.html( originalText );
-
-			});
+			} );
 		},
 		parseText: function( t ) {
 
@@ -188,10 +196,9 @@
 	$.fn[ pluginName ] = function( options ) {
 
 		return this.each( function() {
-			if ( !$.data( this, pluginName ) ) {
-				$.data( this, pluginName, new Plugin( this, options ) );
-			}
-		});
+
+			if ( !$.data( this, pluginName ) ) $.data( this, pluginName, new Plugin( this, options ) );
+		} );
 	};
 
 } ) ( jQuery );
