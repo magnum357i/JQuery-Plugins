@@ -5,6 +5,7 @@
 <script src="quickedit/dist/jquery.quickedit.min.js"></script>
 <script src="readmore/dist/jquery.readmore.min.js"></script>
 <script src="collapselist/dist/jquery.collapselist.js"></script>
+<script src="collapselist/dist/jquery.toggleformelement.js"></script>
 <link rel="stylesheet" type="text/css" href="collapselist/dist/collapselist.css" />
 <script>
 $( document ).ready( function() {
@@ -20,6 +21,7 @@ $( document ).ready( function() {
 
     $( '[data-readmore]' ).readMore();
     $( '[data-collapselist]' ).collapseList();
+    $( '[data-toggleformelement]' ).toggleFormElement();
 });
 </script>
 <style>
@@ -94,6 +96,87 @@ textarea {
 	<li>Steve Boyum</li>
 	<li>John Badham</li>
 </ul>
+
+<form>
+	Test Radio Buttons
+	<br>
+	<input
+		data-toggleformelement
+		data-toggleformelement-groups="testGroup1"
+		data-toggleformelement-target="#testDiv1"
+		type="radio"
+		name="testRadio"
+		value="1"
+	>
+	<label for="tr1">Test1</label>
+	<input
+		data-toggleformelement
+		data-toggleformelement-groups="testGroup1"
+		data-toggleformelement-target="#testDiv2,#testDiv3"
+		type="radio"
+		name="testRadio"
+		value="2"
+		checked
+	>
+	<label for="tr2">Test2</label>
+	<br>
+	<div id="testDiv1">
+		<input type="text" required>
+		<input type="text" required>
+		<input type="text" required>
+	</div>
+	<div id="testDiv2">
+		<input type="text" required>
+		test content 2
+	</div>
+	<div id="testDiv3">
+		test content 3
+	</div>
+	Test Select Box
+	<br>
+	<select name="testSelect" data-toggleformelement>
+		<option
+		data-toggleformelement-groups="testGroup2"
+		data-toggleformelement-target="#testDiv4"
+		>
+		Test 4
+		</option>
+		<option
+		data-toggleformelement-groups="testGroup2"
+		data-toggleformelement-target="#testDiv5"
+		>
+		Test 5
+		</option>
+		<option
+		data-toggleformelement-groups="testGroup2"
+		data-toggleformelement-target="#testDiv6,#testDiv7"
+		selected
+		>
+		Test 6
+		</option>
+		<option
+		data-toggleformelement-groups="testGroup2"
+		data-toggleformelement-target="#testDiv8"
+		>
+		Test 7
+		</option>
+	</select>
+	<div id="testDiv4">
+		test content 4
+	</div>
+	<div id="testDiv5">
+		test content 5
+	</div>
+	<div id="testDiv6">
+		test content 6
+	</div>
+	<div id="testDiv7">
+		test content 7
+	</div>
+	<div id="testDiv8">
+		test content 8
+	</div>
+</form>
 
 </body>
 </html>
